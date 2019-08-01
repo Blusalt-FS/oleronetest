@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 
 public class UPwidget extends WebView {
     String trystring ="";
+    boolean dialog_enable = false;
     boolean flag = false;
     boolean stop_dotmover = false;
     Handler handler = new Handler();
@@ -141,7 +142,7 @@ public void init(String merchantId, String publicKey){
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
+if(dialog_enable){open_dialog(s);}
 
         }
 
@@ -162,7 +163,9 @@ public void init(String merchantId, String publicKey){
 
 
     }
-
+ public void setDialogEnabled(boolean b) {
+        dialog_enable = b;
+    }
     public void open_dialog(String json_data) {
         UnifiedPaymentDialog unifiedPaymentDialog = new UnifiedPaymentDialog(ccc, json_data);
         unifiedPaymentDialog.show();
