@@ -19,15 +19,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 
 public class UPwidget extends WebView {
     String trystring ="";
     boolean flag = false;
+    boolean dialog_enable = false;
     boolean stop_dotmover = false;
     Handler handler = new Handler();
     String jsonUrl;
     Context ccc;
+    String tables = "";
+    String up_subject[] = {"Order ID","Amount","Description","Convenience Fee","Currency","Status","Card Holder","PAN","Scheme","Approval Code","Status Description","Transaction Date"};
+
 
     public UPwidget(Context context) {
         super(context);
@@ -45,9 +50,29 @@ public class UPwidget extends WebView {
         super.onAttachedToWindow();
 
     }
+
+
+    public void doit_table(String json_data) {
+        UPJsonMapper upJsonMapper = new UPJsonMapper(json_data);
+        tables = "<table border=\"0\">"+
+                "<tr><th style=\"text-align:left\">"+up_subject[0]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(1)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[1]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(2)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[2]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(3)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[3]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(4)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[4]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(5)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[5]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(6)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[6]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(7)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[7]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(8)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[8]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(9)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[9]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(10)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[10]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(11)+"</th></tr>"+
+                "<tr><th style=\"text-align:left\">"+up_subject[11]+"</th><th style=\"text-align:left;color:blue\">"+  upJsonMapper.fetch_order(12)+"</th></tr>"+
+                "</table>";
+
+    }
 public void init(String merchantId, String publicKey){
 
-    String backEndUrl = "http://196.46.20.80:8085/";
+    String backEndUrl = "https://test.payarena.com/";
     WebSettings webSetting = getSettings();
     webSetting.setBuiltInZoomControls(true);
     webSetting.setLoadWithOverviewMode(true);
@@ -97,7 +122,7 @@ public void init(String merchantId, String publicKey){
                     jsonUrl = as.replace("Result", "Status");
                     UPwidget.MyAsyncKTask mytask = new UPwidget.MyAsyncKTask();
                     mytask.execute();
-                    setVisibility(View.GONE);
+
                 }
 
                 stop_dotmover = true;
@@ -141,8 +166,8 @@ public void init(String merchantId, String publicKey){
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
-
+            doit_table(s);
+            loadData(tables,"text/html", "UTF-8");
         }
 
         private String inputStreamToString(InputStream ii) {
@@ -163,8 +188,8 @@ public void init(String merchantId, String publicKey){
 
     }
 
-    public void open_dialog(String json_data) {
-        UnifiedPaymentDialog unifiedPaymentDialog = new UnifiedPaymentDialog(ccc, json_data);
-        unifiedPaymentDialog.show();
+    public void setDialogEnabled(boolean b) {
+        dialog_enable = b;
     }
+
 }
