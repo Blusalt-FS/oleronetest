@@ -89,7 +89,7 @@ public void init(String merchantId, String publicKey){
             + "<input type=\"text\" name= \"fee\" value = \"0\"><br>"
             + "<input type=\"text\" name= \"email\" value = \"\"><br>"
             + "<input type=\"text\" name= \"description\" value = \"Descriptionproduct\"><br>"
-            + "<input type=\"text\" hidden = \"true\" name= \"returnUrl\" value = \"http://oleronesoftwares.com/\"><br>"
+            + "<input type=\"text\" hidden = \"true\" name= \"returnUrl\" value = \"http://oleronesoftwares.com/upjoomla/nice_listener.php\"><br>"
             + "<input type=\"text\" hidden = \"true\" name= \"secretKey\" value = \"" + publicKey + "\"><br>"
             + "<input type=\"text\" hidden = \"true\" name= \"trxId\" value = \"12452\"><br>"
             + "<button type=\"submit\" formmethod= \"post\">Submit using POST</button>" +
