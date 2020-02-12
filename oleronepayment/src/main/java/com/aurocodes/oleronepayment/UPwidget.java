@@ -70,32 +70,72 @@ public class UPwidget extends WebView {
                 "</table>";
 
     }
-public void init(String merchantId, String publicKey){
+public void init(String merchantId, String publicKey, String backEndUrl){
 
-    String backEndUrl = "https://test.payarena.com/";
+
     WebSettings webSetting = getSettings();
     webSetting.setBuiltInZoomControls(true);
     webSetting.setLoadWithOverviewMode(true);
     webSetting.setJavaScriptEnabled(true);
-    String htmlstring = "<!DOCTYPE html>" +
-            "<html xmlns = \"http://www.w3.org/1999/xhtml\">"
-            + "<head><title></title></head>"
-            + "<body onload=\"document.frm1.submit()\">"
-            + "<form action=\"" + backEndUrl + merchantId + "\" method = \"post\" name =\"frm1\" target = \"_blank\">"
-            + "<input type=\"text\" name= \"firstname\" value = \"\"><br>"
-            + "<input type=\"text\" name= \"lastname\" value = \"\"><br>"
-            + "<input type=\"text\" name= \"amount\" value = \"400\"><br>"
-            + "<input type=\"text\" name= \"currency\" value = \"566\"><br>"
-            + "<input type=\"text\" name= \"fee\" value = \"0\"><br>"
-            + "<input type=\"text\" name= \"email\" value = \"\"><br>"
-            + "<input type=\"text\" name= \"description\" value = \"Descriptionproduct\"><br>"
-            + "<input type=\"text\" hidden = \"true\" name= \"returnUrl\" value = \"http://oleronesoftwares.com/upjoomla/nice_listener.php\"><br>"
-            + "<input type=\"text\" hidden = \"true\" name= \"secretKey\" value = \"" + publicKey + "\"><br>"
-            + "<input type=\"text\" hidden = \"true\" name= \"trxId\" value = \"12452\"><br>"
-            + "<button type=\"submit\" formmethod= \"post\">Submit using POST</button>" +
-            "</form>" +
-            "</body>" +
-            "</html>";
+    String htmlstring = "<!DOCTYPE html>\n" +
+            "<html xmlns = \"http://www.w3.org/1999/xhtml\"><head><style>\n" +
+            "body {background-color: lightblue;}\n" +
+            "\n" +
+            "h1 {font-family: verdana;\n" +
+            "  color: orange;\n" +
+            "  text-align: center;}\n" +
+            "\n" +
+            "p {font-family: verdana;\n" +
+            "  font-size: 20px;}\n" +
+            "\n" +
+            "\n" +
+            "input[type=text], select {width: 100%;\n" +
+            "  padding: 20px 20px;\n" +
+            "  margin: 8px 0;\n" +
+            "  display: inline-block;\n" +
+            "  border: 1px solid #ccc;\n" +
+            "  border-radius: 4px;\n" +
+            "  box-sizing: border-box;}\n" +
+            "\n" +
+            "button[type=submit] {\n" +
+            "  width: 100%;\n" +
+            "  background-color: #4CAF50;\n" +
+            "  color: white;\n" +
+            "  padding: 14px 20px;\n" +
+            "  margin: 8px 0;\n" +
+            "  border: none;\n" +
+            "  border-radius: 4px;\n" +
+            "  cursor: pointer;}\n" +
+            "\n" +
+            "input[type=submit]:hover {\n" +
+            "  background-color: #45a049;}\n" +
+            "\n" +
+            "div {border-radius: 5px;\n" +
+            "  background-color: #f2f2f2;\n" +
+            "  padding: 20px;}\n" +
+            "</style></head><body onload=\"document.frm1.submit()\">\n" +
+            "        <h1>UNIFIED PAYMENT</h1>\n" +
+            "        <form action=\""+backEndUrl + "/" + merchantId +"\" method = \"post\" name =\"frm1\" target = \"_blank\">\n" +
+            "        <input type=\"text\" name= \"firstname\" value = \"\" placeholder=\"Your first name..\"><br>\n" +
+            "        <input type=\"text\" name= \"lastname\" value = \"\"placeholder=\"Your Surname name..\"><br>\n" +
+            "        <input type=\"text\" name= \"amount\" value = \"\" placeholder=\"Amount in Naira..\"><br>\n" +
+            "        <input type=\"text\" name= \"currency\" value = \"566\"><br>\n" +
+            "        <input type=\"text\" name= \"fee\" value = \"0\"><br>\n" +
+            "        <input type=\"text\" name= \"email\" value = \"\"placeholder=\"E-mail..\"><br>\n" +
+            "       \n" +
+            "        <input type=\"text\" name= \"description\" value = \"\" placeholder=\"Description..\"><br>\n" +
+            "        \n" +
+            "        <input type=\"hidden\" name= \"returnUrl\" value = \"http://oleronesoftwares.com/upjoomla/nice_listener.php\"><br>\n" +
+            "        \n" +
+            "        <input type=\"hidden\" name= \"secretKey\" value = \"" + publicKey + "\"><br>\n" +
+            "         \n" +
+            "        <input type=\"hidden\" name= \"trxId\" value = \"12452\"><br>\n" +
+            "        <button type=\"submit\" formmethod= \"post\">Pay with Unified Payment</button>\n" +
+            "        </form>\n" +
+            "        </body>\n" +
+            "        </html>\n" +
+            "\n" +
+            "\n";
     loadDataWithBaseURL("http://196.46.20.80:8085",htmlstring, "text/html", "UTF-8", null);
     set_webclient();
 }
